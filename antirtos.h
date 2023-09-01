@@ -1,5 +1,5 @@
-#ifndef _NORTOS_H
-#define _NORTOS_H
+#ifndef antirtos_h
+#define antirtos_h
 
 typedef void(*fP)(void);
 
@@ -8,8 +8,8 @@ typedef void(*fP)(void);
 
 class fQ {
 private:
-    int first;
-    int last;
+    volatile int first;
+    volatile int last;
     int length;
     fP * fQueue;
 public:
@@ -54,8 +54,8 @@ int fQ::pull(void){ // pull element from the queue
 template <typename T>
 class fQP {
 private:
-    int first;
-    int last;
+    volatile int first;
+    volatile int last;
     int length;
     typedef void (*FunctionPointer)(T);
     FunctionPointer* FP_Queue;
