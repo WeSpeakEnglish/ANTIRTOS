@@ -54,7 +54,7 @@ void timer2ElapsedInterrupt(){
                                                 //  passed like the argument 
 }
 ``` 
-3.	In main loop:
+3.	In the main loop:
 ```cpp
 void loop() {
   // put your main code here, to run repeatedly:
@@ -68,7 +68,7 @@ void loop() {
 This is it. All the interrupts kept as fast as possible; all the task functions/procedures handled.
 If you need to wait, do the job:
 ```cpp
- while( !neededFlag){
+ while(!neededFlag){
 F1.pull();
 F2.pull();
 }
