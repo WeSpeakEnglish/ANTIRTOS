@@ -1,7 +1,7 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
-antirtos	KEYWORD1
+ANTIRTOS	KEYWORD1
 fQ	KEYWORD1
 fQP	KEYWORD1
 

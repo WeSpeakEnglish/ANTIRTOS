@@ -21,7 +21,7 @@
 #include "SAMDTimerInterrupt.h"
 #include "SAMD_ISR_Timer.h"
 
-#include <antirtos.h>
+#include <ANTIRTOS.h>
 
 // TC3, TC4, TC5 max permissible TIMER_INTERVAL_MS is 1398 ms, larger will overflow, therefore not permitted
 // Use TCC, TCC1, TCC2 for longer TIMER_INTERVAL_MS
