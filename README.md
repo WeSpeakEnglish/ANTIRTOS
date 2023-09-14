@@ -58,26 +58,27 @@ void timer2ElapsedInterrupt(){
 ```cpp
 void loop() {
   // put your main code here, to run repeatedly:
- F1.pull();
- F2.pull();
- F3.pull();
- F4.pull();
+	F1.pull();
+	F2.pull();
+	F3.pull();
+	F4.pull();
 }
 ```
 
 This is it. All the interrupts kept as fast as possible; all the task functions/procedures handled.
 If you need to wait, do the job:
 ```cpp
- while(!neededFlag){
-F1.pull();
-F2.pull();
+while(!neededFlag){
+	F1.pull();
+	F2.pull();
 }
 ```
 Or to delay for some time? Utilize a function like:
 ```cpp
 void DelayOnF1(uint64_t delay){
- uint64_t targetTime = delay + millis();
-  while(millis() < targetTime) F1.pull();
+	uint64_t targetTime = delay + millis();
+	while(millis() < targetTime) 
+		F1.pull();
 }
 ```
 
