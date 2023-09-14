@@ -78,9 +78,9 @@ void DelayOnF1(uint64_t delay){
 
 An example:
 ```cpp
-  digitalWrite(13, HIGH); 	// sets the digital pin 13 on
-  //delay(1000);  		//not needed any more
-   DelayOnF1(1000);		// wait by doing
+digitalWrite(13, HIGH); 	// sets the digital pin 13 on
+//delay(1000);  		//not needed any more
+DelayOnF1(1000);		// wait by doing
 val = analogRead(3);  	// read the input pin
 ```
 
