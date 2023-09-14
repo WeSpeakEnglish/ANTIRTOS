@@ -73,7 +73,7 @@ F1.pull();
 F2.pull();
 }
 ```
-Or to delay some time? Utilize some function like:
+Or to delay for some time? Utilize a function like:
 ```cpp
 void DelayOnF1(uint64_t delay){
  uint64_t targetTime = delay + millis();
