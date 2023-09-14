@@ -1,7 +1,5 @@
 # ANTIRTOS 
-### *by Aleksei Tertychnyi*
-
-**No any RTOS needed, you will see...** 
+### *No any RTOS needed, you will see...*
 
 Imagine you are using little MCU and want to save space or do not have enough resources.
 ### Or maybe do not want to use RTOS or not possible, because…
