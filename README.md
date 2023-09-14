@@ -48,6 +48,7 @@ void timer2ElapsedInterrupt(){
 }
 ``` 
 3.	In main loop:
+```cpp
 void loop() {
   // put your main code here, to run repeatedly:
  F1.pull();
@@ -55,36 +56,43 @@ void loop() {
  F3.pull();
  F4.pull();
 }
+```
 
 This is it. All the interrupts kept as fast as possible; all the task functions/procedures handled.
 If you need to wait, do the job:
+```cpp
  while( !neededFlag){
 F1.pull();
 F2.pull();
 }
+```
 Or to delay some time? Utilize some function like:
+```cpp
 void DelayOnF1(uint64_t delay){
  uint64_t targetTime = delay + millis();
   while(millis() < targetTime) F1.pull();
 }
+```
 
 
-Example 
+An example:
+```cpp
   digitalWrite(13, HIGH); 	// sets the digital pin 13 on
   //delay(1000);  		//not needed any more
    DelayOnF1(1000);		// wait by doing
 val = analogRead(3);  	// read the input pin
-
+```
 
 
 If you need to pass several arguments – no problem, you may use own class for a queue:
+```cpp
 class testClass{        // it is not used here, just like example how you may pass complex argument to your functions in queue
   public:
     int array[10]={0,0,0,0,0,0,0,0,0,0};
     float argument = 0.0;
 };
 fQP<testClass> F2(10);
-
+```
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
