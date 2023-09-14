@@ -93,6 +93,7 @@ class testClass{        // it is not used here, just like example how you may pa
 };
 fQP<testClass> F2(10);
 ```
+Your class instances, passed to functions should be of constant size
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
