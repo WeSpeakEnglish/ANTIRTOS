@@ -8,10 +8,10 @@ Imagine you are using little MCU and want to save space or do not have enough re
 3.	Save resources and manage your code, not RTOS.
 4.	No RTOS is ported to your platform, for example, in the case of very small and cheap microcontrollers.
 
-### Here is the solution, using function pointers queues easily and make:
+### Here is the solution, using function pointers queues easily:
 1.	Interrupts kept fast and controllable, no blocking anymore.
-2.	Easily to debug and understand. 
-3.	You want to have easy way to get multitasking.
+2.	Easy to debug and understand. 
+3.	Get an easy way of multitasking.
 4.	No dummy waiting/blockings. Wait by doing!
 
 Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointers queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
