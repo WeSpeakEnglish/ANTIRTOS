@@ -98,9 +98,9 @@ Your class instances, passed to functions, should be of constant size
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
-You even may improve you divide all your functions into groups: fast (in one pass), slow-to-complete, and middle functions.
+You even may improve your job by dividing all your functions into "weight" groups:
 1.	Divide all your functions into groups: fast (in one pass), slow-to-complete, and middle functions.
 2.	Create a separate queue of pointers to these functions for each type.
-3.	Execute the fastest functions instead of waiting inside the middle functions.
-4.	Use the medium and fast ones for the waiting inside slow procedures.
+3.	Execute the fastest functions instead of waiting inside of the middle functions.
+4.	Use the medium and fast pulls for waiting inside of slow procedures.
 
