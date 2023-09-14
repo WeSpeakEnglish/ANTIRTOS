@@ -17,6 +17,12 @@ Imagine you are using little MCU and want to save space or do not have enough re
 Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointers queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
 
 ### Let’s explain a bit on examples.
+
+0. To start using the library - include the header:
+```cpp
+#include <antirtos.h>
+```
+
 1.	Create a queues in an easy way
 ```cpp
 fQ F1(8); // first queue is 8 elements(function pointers) long
