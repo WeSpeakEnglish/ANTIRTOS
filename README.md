@@ -23,8 +23,9 @@ fQ F1(8); // first queue is 8 elements(function pointers) long
 fQ F2(16); // second queue is 16 elements(function pointers) long
 fQ F3(10); // third queue is 10 elements(function pointers) long
 fQP<int32_t> F4(10); // third queue is 10 elements(function pointers)
+					 // functions are receiving int32_t argument
 ```
-// long, functions are receiving int32_t argument
+
 
 2.	Wherever you want, just push the pointers (and arguments if they needed)
 ```cpp
@@ -93,7 +94,7 @@ class testClass{        // it is not used here, just like example how you may pa
 };
 fQP<testClass> F2(10);
 ```
-Your class instances, passed to functions should be of constant size
+Your class instances, passed to functions, should be of constant size
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
