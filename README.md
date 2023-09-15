@@ -8,13 +8,13 @@ Imagine you are using little MCU and want to save space or do not have enough re
 3.	Save resources and manage your code, not RTOS.
 4.	No RTOS is ported to your platform, for example, in the case of very small and cheap microcontrollers.
 
-### Here is the solution, using function pointers queues easily:
+### Here is the solution, using function pointer queues easily:
 1.	Interrupts kept fast and controllable, no blocking anymore.
 2.	Easy to debug and understand. 
 3.	Get an easy way of multitasking.
 4.	No dummy waiting/blockings. Wait by doing!
 
-Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointers queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
+Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointer queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
 
 ### Let’s explain a bit on examples.
 
@@ -23,7 +23,7 @@ Allow your MCU to perform many tasks, while additionally using a very small amou
 #include <antirtos.h>
 ```
 
-1.	Create a queues in an easy way
+1.	Create queues in an easy way
 ```cpp
 fQ F1(8); // first queue is 8 elements(function pointers) long
 fQ F2(16); // second queue is 16 elements(function pointers) long
@@ -33,7 +33,7 @@ fQP<int32_t> F4(10); // third queue is 10 elements(function pointers)
 ```
 
 
-2.	Wherever you want, just push the pointers (and arguments if they needed)
+2.	Wherever you want, just push your pointers (and arguments if they needed)
 ```cpp
 void button1Interrupt(){
 	F1.push(dealAssociatedButton1); // void dealAssociatedButton1() – is your task for this button
@@ -92,7 +92,7 @@ val = analogRead(3);  	// read the input pin
 ```
 
 
-If you need to pass several arguments – no problem, you may use own class for a queue:
+If you need to pass several arguments – no problem, you may use your own class for a queue:
 ```cpp
 class testClass{        // it is not used here, just like example how you may pass complex argument to your functions in queue
   public:
@@ -101,7 +101,7 @@ class testClass{        // it is not used here, just like example how you may pa
 };
 fQP<testClass> F2(10);
 ```
-Your class instances, passed to functions, should be of constant size
+Instances of your class passed to functions must be of constant size.
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
