@@ -33,10 +33,11 @@ fQP<int32_t> F4(10); // third queue is 10 elements(function pointers)
 ```
 
 
-2.	Wherever you want, just push your pointers (and arguments if they needed)
+2.	Wherever you want, just push your function pointers (and arguments if they needed).  
+
 ```cpp
 void button1Interrupt(){
-	F1.push(dealAssociatedButton1); // void dealAssociatedButton1() – is your task for this button
+	F1.push(Below used following functions); // void dealAssociatedButton1() – is your task for this button
 }
   
 void button2Interrupt(){
@@ -49,11 +50,12 @@ void timer1ElapsedInterrupt(){
                                         // is your task for this timer1 event 
 }
 void timer2ElapsedInterrupt(){
-	F4.push(dealAssociatedTimer2, yourIntArg);  // void dealAssociatedTimer2() – 
-                                                // is your task for this timer2 event and variable yourIntArg
-                                                //  passed like the argument 
+	F4.push(dealAssociatedTimer2, yourIntArg);  // void dealAssociatedTimer2(int yourIntArg) – 
+                                                // is your task for this timer2 event and the variable yourIntArg
+                                                //  passed like an argument 
 }
-``` 
+```    
+
 3.	In the main loop:
 ```cpp
 void loop() {
