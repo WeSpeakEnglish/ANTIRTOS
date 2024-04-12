@@ -13,7 +13,7 @@
 /// @brief class for finctional pointers queue without parameters
 class fQ {
 private:
-    volatile int first;
+    int first;
     volatile int last;
     int length;
 	typedef void(*fP)(void);
@@ -60,7 +60,7 @@ int fQ::pull(void){ // pull element from the queue
 template <typename T>
 class fQP {
 private:
-    volatile int first;
+    int first;
     volatile int last;
     int length;
     typedef void (*fP)(T);
