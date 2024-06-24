@@ -109,27 +109,27 @@ Instances of your class passed to functions must be of constant size.
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
- del_fQ F5(8);
+ del_fQ F5(8); // 'delayed' queue
 
  ```
 put where you want (here example of 2 functions put into queue):
 ```cpp
- F5.push_delayed(your_func_1, 1000); // delay in ticks
- F5.push_delayed(your_func_2, 2000);
+ F5.push_delayed(your_func_1, 1000); // function your_func_1() will be delayed for 1000 'ticks'
+ F5.push_delayed(your_func_2, 2000); // function your_func_2() will be delayed for 2000 'ticks'
  ```
  
  in main loop (or other periodic loop) just need to:
  ```cpp
  void loop() {
  .......
- F5.pull();
+ F5.pull(); //execute in loop just this super fast function;
  }
  ```
  in some timer or periodic function:
   ```cpp
-	F5.tick();
+	F5.tick(); // execute for 'ticks' in timer so the quue class instance will know then to initiate execution
   ```
-That's it. Enjoy!
+That's it. Enjoy! 
  
 
 If you are not sure of interrupts priorities, push to different queues in each interrupt
