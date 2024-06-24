@@ -4,6 +4,7 @@
 ANTIRTOS	KEYWORD1
 fQ	KEYWORD1
 fQP	KEYWORD1
+del_fQ KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -21,4 +22,9 @@ pull	KEYWORD2
 push	KEYWORD2
 pull	KEYWORD2
 
-
+###################################
+# Class del_fQ
+###################################
+push_delayed KEYWORD2
+push	KEYWORD2
+pull	KEYWORD2
