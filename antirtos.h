@@ -10,33 +10,77 @@
 #ifndef antirtos_h
 #define antirtos_h
 
-/// @brief class for finctional pointers queue without parameters
-class fQ {
+/// @brief delayed functional pointers queue without parameters, only time delay parameter
+class del_fQ{
 private:
     int first;
     volatile int last;
     int length;
-	typedef void(*fP)(void);
+    unsigned int time;
+    typedef void(*fP)(void);
     fP * fQueue;
-public:
-    fQ(int sizeQ);
-    ~fQ();
+    fP * del_fQueue;             // delayed functions
+    bool * execArr;             //is need to be executed?
+    unsigned int * execTime;    //execution time arr 
     int push(fP);
+public:
+    del_fQ(int sizeQ);
+    ~del_fQ();
+    int push_delayed(fP pointerF, unsigned int delayTime);
+    void tick(void);       
     int pull(void);
 };
 
-fQ::fQ(int sizeQ){ // initialization of Queue
+del_fQ::del_fQ(int sizeQ){ // initialization of Queue
   fQueue = new fP[sizeQ];
+  del_fQueue = new fP[sizeQ];
+  execArr = new bool[sizeQ];
+  execTime = new unsigned int[sizeQ];
   last = 0;
   first = 0;
+  time = 0;
+  for(unsigned int i = 0; i < sizeQ; i++){
+    execArr[i] = false;
+  }
   length = sizeQ;
 };
 
-fQ::~fQ(){ // initialization of Queue
+del_fQ::~del_fQ(){ // initialization of Queue
   delete [] fQueue;
+  delete [] del_fQueue;
+  delete [] execArr;
+  delete [] execTime;
 };
 
-int fQ::push(fP pointerF){ // push element from the queue
+int del_fQ::push_delayed(fP pointerF, unsigned int delayTime){ // push element from the queue
+  
+  bool fullQ = true;                                      // is Queue full?
+     for(unsigned int i = 0; i < length; i++){
+      if (!execArr[i] ){
+       del_fQueue[i] = pointerF;                          // put pointer into exec queue 
+       execArr[i] = true;                                 // true flag for execution
+       execTime[i] = time + delayTime;                    //calc execution time, no worry if overload
+       fullQ = false;
+       break;
+       }
+  }
+  if (fullQ) return 1;
+  return 0;
+};
+
+void del_fQ::tick(void){
+  static unsigned int i = 0 ;  //uses in search cycle every tick
+   for(i=0; i < length; i++){
+     if(execTime[i] == time)
+      if(execArr[i]){
+       push(del_fQueue[i]);  // bump into normal queue part of delayed Queue
+       execArr[i] = false;
+     }
+   }
+  time++;
+}
+
+int del_fQ::push(fP pointerF){ // push element from the queue
   if ((last+1)%length == first){
     return 1;
   }
@@ -45,7 +89,7 @@ int fQ::push(fP pointerF){ // push element from the queue
   return 0;
 };
 
-int fQ::pull(void){ // pull element from the queue
+int del_fQ::pull(void){ // pull element from the queue
   if (last != first){
   fQueue[first++]();
   first = first%length;
@@ -56,7 +100,7 @@ int fQ::pull(void){ // pull element from the queue
   }
 };
 
-/// @brief class for finctional pointers queue with supporting of transfer of parameters
+/// @brief class for functional pointers queue with supporting of transfer of parameters
 template <typename T>
 class fQP {
 private:

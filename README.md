@@ -105,6 +105,33 @@ fQP<testClass> F2(10);
 ```
 Instances of your class passed to functions must be of constant size.
 
+##Delayed functions.
+need just to delay some function from execution? Do not wait any more!
+Initialize:
+```cpp
+ del_fQ F5(8);
+
+ ```
+put where you want (here example of 2 functions put into queue):
+```cpp
+ F5.push_delayed(your_func_1, 1000); // delay in ticks
+ F5.push_delayed(your_func_2, 2000);
+ ```
+ 
+ in main loop (or other periodic loop) just need to:
+ ```cpp
+ void loop() {
+ .......
+ F5.pull();
+ }
+ ```
+ in some timer or periodic function:
+  ```cpp
+	F5.tick();
+  ```
+That's it. Enjoy!
+ 
+
 If you are not sure of interrupts priorities, push to different queues in each interrupt
 
 You even may improve your job by dividing all your functions into "weight" groups:
