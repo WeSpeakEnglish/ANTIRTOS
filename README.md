@@ -105,7 +105,7 @@ fQP<testClass> F2(10);
 ```
 Instances of your class passed to functions must be of constant size.
 
-###Delayed functions.
+### Delayed functions
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
