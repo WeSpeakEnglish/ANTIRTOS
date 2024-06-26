@@ -4,9 +4,9 @@
 Imagine you are using little MCU and want to save space or do not have enough resources.
 ### Or maybe do not want to use RTOS or not possible, because…
 1.	Do not want to learn RTOS operations and critical section stuff.
-2.	Difficult to debug.
-3.	Save resources and manage your code, not RTOS.
-4.	No RTOS is ported to your platform, for example, in the case of very small and cheap microcontrollers.
+2.	RTOS is difficult to debug.
+3.	Want to save resources and manage your code, not RTOS.
+4.	You do not have enough space for RTOS on MCU.
 
 ### Here is the solution, using function pointer queues easily:
 1.	Interrupts kept fast and controllable, no blocking anymore.
