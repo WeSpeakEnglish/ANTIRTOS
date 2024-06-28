@@ -1,7 +1,6 @@
 # ANTIRTOS 
 ### *No any RTOS needed, you will see...*
-
-Imagine you are using little MCU and want to save space or do not have enough resources.
+ANTIRTOS is an ultra-lightweight, universal C++ library designed for task management in IoT and embedded applications. It is coded in a single, small file of just 5KB, making it incredibly easy to integrate into your projects. ANTIRTOS aims to deliver a robust, secure, and efficient platform for task management. With its focus on modularity and scalability, ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems.
 ### Or maybe do not want to use RTOS or not possible, because…
 1.	Do not want to learn RTOS operations and critical section stuff.
 2.	RTOS is difficult to debug.
