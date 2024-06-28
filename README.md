@@ -1,18 +1,14 @@
 # ANTIRTOS 
 ### *No any RTOS needed, you will see...*
 ANTIRTOS is an ultra-lightweight, universal C++ library designed for task management in IoT and embedded applications. It is coded in a single, small file of just 5KB, making it incredibly easy to integrate into your projects. ANTIRTOS aims to deliver a robust, secure, and efficient platform for task management. With its focus on modularity and scalability, ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems.
-### Or maybe do not want to use RTOS or not possible, because…
-1.	Do not want to learn RTOS operations and critical section stuff.
-2.	RTOS is difficult to debug.
-3.	Want to save resources and manage your code, not RTOS.
-4.	You do not have enough space for RTOS on MCU.
+It is developed especially for embedded systems where the complexity and overhead of an RTOS are not justified.
 
-### Here is the solution, using function pointer queues easily:
+### Benifits:
 1.	Interrupts kept fast and controllable, no blocking anymore.
 2.	Easy to debug and understand. 
 3.	Get an easy way of multitasking.
 4.	No dummy waiting/blockings. Wait by doing!
-
+5.	No need to have a deal with critical sections/mutexes/semaphores, keep your project based on straight forward architecture
 Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointer queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
 
 ### Let’s explain a bit on examples.
