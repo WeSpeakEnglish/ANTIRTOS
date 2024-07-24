@@ -28,3 +28,4 @@ pull	KEYWORD2
 push_delayed KEYWORD2
 push	KEYWORD2
 pull	KEYWORD2
+tick	KEYWORD2
