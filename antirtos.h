@@ -119,7 +119,7 @@ private:
     int first;
     volatile int last;
     int length;
-    unsigned int time;
+    unsigned long time;
     typedef void(*fP)(void);
     fP * fQueue;
     fP * del_fQueue;             // delayed functions
@@ -129,7 +129,7 @@ private:
 public:
     del_fQ(int sizeQ);
     ~del_fQ();
-    int push_delayed(fP pointerF, unsigned int delayTime);
+    int push_delayed(fP pointerF, unsigned long delayTime);
     void tick(void);       
     int pull(void);
 };
@@ -138,7 +138,7 @@ del_fQ::del_fQ(int sizeQ){ // initialization of Queue
   fQueue = new fP[sizeQ];
   del_fQueue = new fP[sizeQ];
   execArr = new bool[sizeQ];
-  execTime = new unsigned int[sizeQ];
+  execTime = new unsigned long[sizeQ];
   last = 0;
   first = 0;
   time = 0;
@@ -155,7 +155,7 @@ del_fQ::~del_fQ(){ // initialization of Queue
   delete [] execTime;
 };
 
-int del_fQ::push_delayed(fP pointerF, unsigned int delayTime){ // push element from the queue
+int del_fQ::push_delayed(fP pointerF, unsigned long delayTime){ // push element from the queue
   
   bool fullQ = true;                                      // is Queue full?
      for(unsigned int i = 0; i < length; i++){
