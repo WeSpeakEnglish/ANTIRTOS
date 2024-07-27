@@ -2,9 +2,9 @@
 # Datatypes (KEYWORD1)
 #######################################
 ANTIRTOS	KEYWORD1
-fQ	KEYWORD1
-fQP	KEYWORD1
-del_fQ KEYWORD1
+fQ  KEYWORD1
+fQP  KEYWORD1
+del_fQ  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
