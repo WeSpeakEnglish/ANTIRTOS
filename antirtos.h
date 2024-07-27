@@ -124,7 +124,7 @@ private:
     fP * fQueue;
     fP * del_fQueue;             // delayed functions
     bool * execArr;             //is need to be executed?
-    unsigned int * execTime;    //execution time arr 
+    unsigned long * execTime;    //execution time arr 
     int push(fP);
 public:
     del_fQ(int sizeQ);
