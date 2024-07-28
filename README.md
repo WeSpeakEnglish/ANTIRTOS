@@ -22,11 +22,11 @@ Allow your MCU to perform many tasks, while additionally using a very small amou
 
 1.	Create queues in an easy way
 ```cpp
-fQ F1(8); // first queue is 8 elements(function pointers) long
-fQ F2(16); // second queue is 16 elements(function pointers) long
-fQ F3(10); // third queue is 10 elements(function pointers) long
-fQP<int32_t> F4(10); // third queue is 10 elements(function pointers)
-					 // functions are receiving int32_t argument
+fQ F1(4); // first queue is 4 elements(function pointers) long
+fQ F2(4); // second queue is 4 elements(function pointers) long
+fQ F3(8); // third queue is 8 elements(function pointers) long
+fQP<int32_t> F4(3); // third queue is 3 elements(function pointers)
+		    // functions are receiving int32_t argument
 ```
 
 
