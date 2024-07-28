@@ -87,7 +87,7 @@ An example:
 digitalWrite(13, HIGH); 	// sets the digital pin 13 on
 //delay(1000);  		//not needed any more
 DelayOnF1(1000);		// wait by doing
-val = analogRead(3);  	// read the input pin
+val = analogRead(3);  		// read the input pin
 ```
 
 
@@ -124,7 +124,7 @@ put where you want (here example of 2 functions put into queue):
  ```
  in some timer or periodic function:
   ```cpp
-	F5.tick(); // execute for 'ticks' in timer so the quue class instance will know then to initiate execution
+	F5.tick(); // execute for 'ticks' in timer so the queue class instance will know then to initiate execution
   ```
 That's it. Enjoy! 
  
