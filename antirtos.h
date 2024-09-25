@@ -9,6 +9,10 @@
 
 #ifndef antirtos_h
 #define antirtos_h
+// ANTIRTOS under MIT by Aleksei Tertychnyi
+
+#ifndef nortos_h
+#define nortos_h
 
 /// @brief class for finctional pointers queue without parameters
 class fQ {
@@ -203,3 +207,109 @@ int del_fQ::pull(void){ // pull element from the queue
   }
 };
 #endif
+
+/// @brief delayed functional pointers queue with parameters
+template <typename T>
+class del_fQP {
+private:
+    int first;
+    volatile int last;
+    int length;
+    unsigned int time;
+    typedef void (*fP)(T);
+    fP * FP_Queue;
+    fP * del_FP_Queue;                  // delayed functions
+    bool * execArr;                     //is need to be executed?
+    unsigned int * execTime;            //execution time arr 
+    T* PARAMS_array;
+    T* delayed_PARAMS_array;
+    int push(void (*pointerQ)(T), T parameterQ);
+    
+public:
+    del_fQP(int sizeQ);
+    ~del_fQP();
+    int push_delayed(void (*pointerQ)(T), T parameterQ, unsigned int delayTime);
+    void tick(void);
+    int pull();
+};
+
+template <typename T>
+del_fQP<T>::del_fQP(int sizeQ) {
+    FP_Queue = new fP[sizeQ];
+    del_FP_Queue = new fP[sizeQ];
+    execArr = new bool[sizeQ];
+    PARAMS_array = new T[sizeQ];
+    delayed_PARAMS_array = new T[sizeQ];
+    execTime = new unsigned int[sizeQ];
+    last = 0;
+    first = 0;
+    time = 0;
+    for(unsigned int i = 0; i < sizeQ; i++){
+      execArr[i] = false;
+    }
+    length = sizeQ;
+}
+
+template <typename T>
+del_fQP<T>::~del_fQP() {
+    delete[] FP_Queue;
+    delete[] del_FP_Queue;
+    delete[] PARAMS_array;
+    delete[] delayed_PARAMS_array;
+    delete [] execArr;
+    delete [] execTime;
+}
+
+template <typename T>
+int del_fQP<T>::push(void (*pointerQ)(T), T parameterQ) {
+    if ((last + 1) % length == first) return 1;
+    FP_Queue[last] = pointerQ;
+    PARAMS_array[last] = parameterQ;
+    last = (last + 1) % length;
+    return 0;
+}
+
+template <typename T>
+int del_fQP<T>::push_delayed(void (*pointerQ)(T), T parameterQ, unsigned int delayTime) {
+bool fullQ = true;                                              // is Queue full?
+     for(unsigned int i = 0; i < length; i++){
+      if (!execArr[i] ){
+       del_FP_Queue[i] = pointerQ;                              // put function pointer into exec queue 
+       delayed_PARAMS_array[i] = parameterQ;                    // put parameter into exec queue    
+       execArr[i] = true;                                       // true flag for execution
+       execTime[i] = time + delayTime;                          //calc execution time, no worry if overload
+       fullQ = false;
+       break;
+       }
+  }
+  if (fullQ) return 1;
+  return 0;
+}
+
+template <typename T>
+void del_fQP<T>::tick(void){
+  static unsigned int i = 0 ;  //uses in search cycle every tick
+   for(i=0; i < length; i++){
+     if(execTime[i] == time)
+      if(execArr[i]){
+       push(del_FP_Queue[i],delayed_PARAMS_array[i]);  // bump into normal queue part of delayed Queue
+       execArr[i] = false;
+     }
+   }
+  time++;
+}
+
+template <typename T>
+int del_fQP<T>::pull() {
+    fP pullVar;
+    if (last != first) {
+        T Params = PARAMS_array[first];
+        pullVar = FP_Queue[first];
+        first = (first + 1) % length;
+        pullVar(Params);
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
