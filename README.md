@@ -1,17 +1,9 @@
-<table border="0">
-	<tr>
-		<td>
-			<img src="https://github.com/WeSpeakEnglish/images/blob/main/logo_antirtos.png" width="300">
-		</td>
-		<td>
-
-		</td>
-	</tr>
-</table>
+<img src="https://github.com/WeSpeakEnglish/images/blob/main/logo_antirtos.png" width="300">
 # ANTIRTOS 
 ### *No any RTOS needed, you will see...*
 ANTIRTOS is an ultra-lightweight, universal C++ library designed for task management in IoT and embedded applications. It is coded in a single, small file of just 5KB, making it incredibly easy to integrate into your projects. ANTIRTOS aims to deliver a robust, secure, and efficient library for task management. With its focus on modularity and scalability, ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems.
 It is developed especially for embedded systems where the complexity and overhead of an RTOS are not justified.
+
 ### Benifits:
 1.	Interrupts kept fast and controllable, no blocking anymore.
 2.	Easy to debug and understand. 
