@@ -11,9 +11,6 @@
 #define antirtos_h
 // ANTIRTOS under MIT by Aleksei Tertychnyi
 
-#ifndef nortos_h
-#define nortos_h
-
 /// @brief class for finctional pointers queue without parameters
 class fQ {
 private:
@@ -206,7 +203,7 @@ int del_fQ::pull(void){ // pull element from the queue
    return 1;
   }
 };
-#endif
+
 
 /// @brief delayed functional pointers queue with parameters
 template <typename T>
@@ -313,3 +310,5 @@ int del_fQP<T>::pull() {
         return 1;
     }
 }
+
+#endif
