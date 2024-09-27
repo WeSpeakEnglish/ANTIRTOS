@@ -129,6 +129,31 @@ put where you want (here example of 2 functions put into queue):
   ```cpp
 	F5.tick(); // execute for 'ticks' in timer so the queue class instance will know then to initiate execution
   ```
+  
+  ### Delayed functions with parameters
+Do you need just to delay some function from execution? Do not wait any more!
+Initialize:
+```cpp
+ del_fQP<float> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue
+
+ ```
+put where you want (here example of 2 functions put into queue):
+```cpp
+ F6.push_delayed(your_func_1, 3.14, 1000); // function your_func_1(3.14) will be delayed for 1000 'ticks'
+ F6.push_delayed(your_func_2, 3.15, 2000); // function your_func_2(3.15) will be delayed for 2000 'ticks'
+ ```
+ 
+ in main loop (or other periodic loop) just need to:
+ ```cpp
+ void loop() {
+ .......
+ F6.pull(); //execute in loop just this super fast function;
+ }
+ ```
+ in some timer or periodic function:
+  ```cpp
+	F6.tick(); // execute for 'ticks' in timer so the queue class instance will know then to initiate execution
+  ```
 That's it. Enjoy! 
  
 
