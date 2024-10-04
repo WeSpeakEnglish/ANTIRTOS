@@ -131,7 +131,7 @@ put where you want (here example of 2 functions put into queue):
   ```
   
   ### Delayed functions with parameters
-Do you need just to delay some function from execution? Do not wait any more!
+Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
  del_fQP<float> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue
