@@ -14,7 +14,7 @@ It is developed especially for embedded systems where the complexity and overhea
 5.	No need to have a deal with critical sections/mutexes/semaphores, no tasks stack memory overflows. Keep your project based on straight forward architecture
 
 Get rid of complexity!   
-Allow your MCU to perform many tasks, while additionally using a very small amount of microcontroller memory. Manage function pointer queues in easy way, just through you task there, and pull them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
+Allow your MCU to perform many tasks while using a very small amount of microcontroller memory. Manage function pointer queues in a simple way by simply placing your tasks there and pulling them from a main loop. This approach allows you to keep interrupts fast and at the same time control multitasking in a simple and transparent way. Pass arguments to you function, they will be saved in separate queue and handled.
 
 ### Let’s explain a bit on examples.
 
