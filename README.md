@@ -165,3 +165,5 @@ You even may improve your job by dividing all your functions into "weight" group
 3.	Execute the fastest functions instead of waiting inside of the middle functions.
 4.	Use the medium and fast pulls for waiting inside of slow procedures.
 
+Try it on [Wokwi](https://wokwi.com/projects/410932957331738625)!
+
