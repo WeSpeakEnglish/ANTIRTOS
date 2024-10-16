@@ -154,6 +154,14 @@ put where you want (here example of 2 functions put into queue):
   ```cpp
 	F6.tick(); // execute for 'ticks' in timer so the queue class instance will know then to initiate execution
   ```
+
+  ### Revocation function from conveyers
+  You may easily revoke your tasks from delayed functional queues like following:
+   ```cpp
+  F5.revoke(yourTask); // revoke function (all of the same if there are several of them) from the F5 queue
+  ```
+Kindly find an example of usage revocation on [Wokwi](https://wokwi.com/projects/411101121732784129)!
+
 That's it. Enjoy! 
  
 
