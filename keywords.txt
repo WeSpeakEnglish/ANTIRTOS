@@ -30,6 +30,7 @@ push_delayed KEYWORD2
 push	KEYWORD2
 pull	KEYWORD2
 tick	KEYWORD2
+revoke	KEYWORD2
 
 ###################################
 # Class del_fQP
@@ -38,3 +39,4 @@ push_delayed KEYWORD2
 push 	KEYWORD2
 pull	KEYWORD2
 tick	KEYWORD2
+revoke	KEYWORD2
