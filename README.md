@@ -28,7 +28,7 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 fQ F1(4); // first queue is 4 elements(function pointers) long
 fQ F2(4); // second queue is 4 elements(function pointers) long
 fQ F3(8); // third queue is 8 elements(function pointers) long
-fQP<int32_t> F4(3); // third queue is 3 elements(function pointers)
+fQP<int32_t> F4(3); // fourth queue is 3 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
