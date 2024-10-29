@@ -1,5 +1,6 @@
 <img src="https://github.com/WeSpeakEnglish/images/blob/main/logo_antirtos.png" width="300">
 
+## This is a forked repository of github.com/WeSpeakEnglish/ANTIRTOS
 
 # ANTIRTOS 
 ### *No RTOS need, you will see...*
@@ -25,10 +26,10 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 
 1.	Create queues in an easy way
 ```cpp
-fQ F1(4); // first queue is 4 elements(function pointers) long
-fQ F2(4); // second queue is 4 elements(function pointers) long
-fQ F3(8); // third queue is 8 elements(function pointers) long
-fQP<int32_t> F4(3); // fourth queue is 3 elements(function pointers)
+tQ<4> F1(); // first queue is 4 elements(function pointers) long
+tQ<4> F2(); // second queue is 4 elements(function pointers) long
+tQ<8> F3(); // third queue is 8 elements(function pointers) long
+tQP<3, int32_t> F4(); // fourth queue is 3 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
@@ -101,7 +102,7 @@ class testClass{        // it is not used here, just like example how you may pa
     int array[10]={0,0,0,0,0,0,0,0,0,0};
     float argument = 0.0;
 };
-fQP<testClass> F2(10);
+tQ<testClass, 10> F2();
 ```
 Instances of your class passed to functions must be of constant size.
 
@@ -109,7 +110,7 @@ Instances of your class passed to functions must be of constant size.
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
- del_fQ F5(8); // 'delayed' queue
+ tQd<8> F5(); // 'delayed' queue
 
  ```
 put where you want (here example of 2 functions put into queue):
@@ -134,7 +135,7 @@ put where you want (here example of 2 functions put into queue):
 Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
- del_fQP<float> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue
+ tQd<8, float> F6(); // // maximum 8 'delayed' functions pointers with parameters in queue
 
  ```
 put where you want (here example of 2 functions put into queue):
