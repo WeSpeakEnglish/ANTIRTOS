@@ -223,6 +223,9 @@ public:
   /// -1 - No tasks to run
   int pull(void);
 
+  /// @brief Runs all available tasks
+  void pull_all(void);
+
 protected:
   std::size_t front;           // front of the queue
   std::size_t back;            // back of the queue
@@ -279,6 +282,16 @@ int tQ<QSize, TArgs...>::pull(void)
   }
 
   return status;
+}
+
+template <std::size_t QSize, typename... TArgs>
+void tQ<QSize, TArgs...>::pull_all(void)
+{
+  int err = 0;
+  do
+  {
+    err = this->pull();
+  } while (0 == err);
 }
 
 template <std::size_t QSize, typename... TArgs>

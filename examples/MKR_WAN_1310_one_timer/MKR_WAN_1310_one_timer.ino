@@ -49,9 +49,9 @@ public:
   float argument = 0.0;
 };
 
-tQ<10, uint32_t> F1();
-tQ<10, testClass> F2(); // it is not used here, just like example how you may pass complex argument
-                        // to your functions in queue
+Antirtos::tQ<10, uint32_t> F1();
+Antirtos::tQ<10, testClass> F2(); // it is not used here, just like example how you may pass complex
+                                  // argument to your functions in queue
 
 void printMessage1(
     uint32_t milliseconds) // ISR function excutes when push button at pinD2 is pressed

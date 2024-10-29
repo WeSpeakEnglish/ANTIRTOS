@@ -14,11 +14,13 @@ tQd  KEYWORD1
 ###################################
 push	KEYWORD2
 pull	KEYWORD2
+pull_all	KEYWORD2
 
 ###################################
 # Class tQd
 ###################################
-push_dealyed	KEYWORD2
+push_delayed	KEYWORD2
 pull	KEYWORD2
+pull_all	KEYWORD2
 tick	KEYWORD2
 revoke	KEYWORD2

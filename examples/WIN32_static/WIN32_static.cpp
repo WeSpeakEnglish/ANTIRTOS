@@ -70,37 +70,21 @@ int main()
 
   while (1)
   {
-    int err = 0;
 
     // Get all functions in no param task queue
-    do
-    {
-      err = tq_no_parameter.pull();
-    } while (0 == err);
+    tq_no_parameter.pull_all();
 
     // Get all functions in one param task queue
-    do
-    {
-      err = tq_one_parameter.pull();
-    } while (0 == err);
+    tq_one_parameter.pull_all();
 
     // Get all functions in two param task queue
-    do
-    {
-      err = tq_two_parameters.pull();
-    } while (0 == err);
+    tq_two_parameters.pull_all();
 
     // Get all functions in one param delayed task queue
-    do
-    {
-      err = tq_del_one_parameter.pull();
-    } while (0 == err);
+    tq_del_one_parameter.pull_all();
 
     // Get all functions in object param delayed task queue
-    do
-    {
-      err = tq_del_object_parameter.pull();
-    } while (0 == err);
+    tq_del_object_parameter.pull_all();
   }
 
   return 0;
