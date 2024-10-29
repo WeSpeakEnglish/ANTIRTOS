@@ -224,10 +224,10 @@ public:
   int pull(void);
 
 protected:
-  std::size_t front;
-  std::size_t back;
-  std::size_t count;
-  Task<TArgs...> tasks[QSize];
+  std::size_t front;           // front of the queue
+  std::size_t back;            // back of the queue
+  std::size_t count;           // number of items currently in the queue
+  Task<TArgs...> tasks[QSize]; // Task queue memory block
 
   /// @brief pushes a constructed task
   /// @param task - task to be pushed onto queue
@@ -334,8 +334,8 @@ public:
 private:
   std::size_t time;                    // Variable for current time.
   std::size_t count;                   // Current count of delayed tasks
-  Task<TArgs...> delayed_tasks[QSize]; // delayed task queue
-  std::size_t exec_times[QSize];       // execution times.
+  Task<TArgs...> delayed_tasks[QSize]; // Delayed task queue memory block
+  std::size_t exec_times[QSize];       // Execution times.
 };
 
 template <std::size_t QSize, typename... TArgs>
