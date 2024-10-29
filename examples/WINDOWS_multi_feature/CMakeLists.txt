@@ -5,10 +5,10 @@ project(antirtos_win32_static VERSION 1.0 LANGUAGES CXX)
 
 # Setup source and header files
 set (SOURCES
-    "WIN32_static.cpp"
+    "WINDOWS_multi_feature.cpp"
 )
 set (HEADERS
-    "WIN32_static_helper.hpp"
+    "WINDOWS_multi_feature.hpp"
     "../../antirtos.h"
 )
 # setup directories
