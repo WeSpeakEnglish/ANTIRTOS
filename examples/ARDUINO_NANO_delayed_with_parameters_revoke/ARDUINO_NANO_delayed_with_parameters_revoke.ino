@@ -7,7 +7,7 @@ typedef struct pinOut
   int period;
 } pinout;
 
-Antirtos::tQd<10, pinout> Q1(); // maximum 10 function pointers with parameters in queue
+antirtos::TaskQd<10, pinout> Q1(); // maximum 10 function pointers with parameters in queue
 
 void writePin(pinout cmd)
 { // write a pin logic

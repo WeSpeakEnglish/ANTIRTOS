@@ -2,22 +2,22 @@
 # Datatypes (KEYWORD1)
 #######################################
 ANTIRTOS	KEYWORD1
-tQ  KEYWORD1
-tQd  KEYWORD1
+TaskQ  KEYWORD1
+TaskQd  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 ###################################
-# Class tQ
+# Class TaskQ
 ###################################
 push	KEYWORD2
 pull	KEYWORD2
 pull_all	KEYWORD2
 
 ###################################
-# Class tQd
+# Class TaskQd
 ###################################
 push_delayed	KEYWORD2
 pull	KEYWORD2

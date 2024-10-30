@@ -8,31 +8,31 @@ typedef struct my_object_t
   float second_arg;
 } my_object_t;
 
-Antirtos::tQ<2> tq_no_parameter;
+antirtos::TaskQ<2> tq_no_parameter;
 void PrintNoParameter()
 {
   std::cout << "No Parameter" << std::endl;
 }
 
-Antirtos::tQ<2, int> tq_one_parameter;
+antirtos::TaskQ<2, int> tq_one_parameter;
 void PrintOneParameter(int x)
 {
   std::cout << "One Parameter: " << x << std::endl;
 }
 
-Antirtos::tQ<2, int, float> tq_two_parameters;
+antirtos::TaskQ<2, int, float> tq_two_parameters;
 void PrintTwoParameters(int x, float y)
 {
   std::cout << "Two Parameters: " << x << " & " << y << std::endl;
 }
 
-Antirtos::tQd<2, int> tq_del_one_parameter;
+antirtos::TaskQd<2, int> tq_del_one_parameter;
 void PrintDelayedParameter(int x)
 {
   std::cout << "Delayed Call, Parameter: " << x << std::endl;
 }
 
-Antirtos::tQd<2, my_object_t> tq_del_object_parameter;
+antirtos::TaskQd<2, my_object_t> tq_del_object_parameter;
 void PrintDelayedObjectParameter(my_object_t x)
 {
   std::cout << "Delayed Call" << std::endl;

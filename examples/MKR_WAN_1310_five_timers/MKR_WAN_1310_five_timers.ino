@@ -33,11 +33,11 @@ SAMDTimer ITimer2(TIMER_TC5);
 SAMDTimer ITimer3(TIMER_TCC);
 SAMDTimer ITimer4(TIMER_TCC1);
 
-Antirtos::tQ<10, uint32_t> F1();
-Antirtos::tQ<10, uint32_t> F2();
-Antirtos::tQ<10, uint32_t> F3();
-Antirtos::tQ<10, uint32_t> F4();
-Antirtos::tQ<10, uint32_t> F5();
+antirtos::TaskQ<10, uint32_t> F1();
+antirtos::TaskQ<10, uint32_t> F2();
+antirtos::TaskQ<10, uint32_t> F3();
+antirtos::TaskQ<10, uint32_t> F4();
+antirtos::TaskQ<10, uint32_t> F5();
 
 void TimerHandler_TIMER_TC3()
 {

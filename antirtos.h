@@ -6,10 +6,10 @@
 #include <cstddef>
 #include <tuple>
 
-namespace Antirtos
+namespace antirtos
 {
 
-namespace Utils
+namespace utils
 {
   /* Template parameter pack for index sequence*/
   template <std::size_t... IndexList>
@@ -40,7 +40,7 @@ namespace Utils
   template <typename... TypeList>
   using IndexSequenceFor = typename make_index_sequence<sizeof...(TypeList)>::Type;
 
-} // namespace Utils
+} // namespace utils
 
 /// @brief Class for a given task
 /// @tparam TArgs - variadic template args to have any number of templated args for the function
@@ -101,7 +101,7 @@ private:
   /// @tparam indexes - parameter pack containing sequence of argument indexes for passing to called
   /// function
   template <std::size_t... indexes>
-  void call_func(Utils::index_sequence<indexes...>);
+  void call_func(utils::index_sequence<indexes...>);
 };
 
 template <typename... TArgs>
@@ -175,7 +175,7 @@ int Task<TArgs...>::run()
 
   if (func_ptr)
   {
-    call_func(Utils::IndexSequenceFor<TArgs...>());
+    call_func(utils::IndexSequenceFor<TArgs...>());
     status = 0;
   }
 
@@ -190,7 +190,7 @@ typename Task<TArgs...>::FunctionPointer Task<TArgs...>::function_pointer()
 
 template <typename... TArgs>
 template <std::size_t... indexes>
-void Task<TArgs...>::call_func(Utils::index_sequence<indexes...>)
+void Task<TArgs...>::call_func(utils::index_sequence<indexes...>)
 {
   // Unpack the tuple and call the function with the arguments.
   func_ptr(std::get<indexes>(func_args)...);
@@ -200,14 +200,14 @@ void Task<TArgs...>::call_func(Utils::index_sequence<indexes...>)
 /// @tparam QSize - the maximum number of tasks the queue can hold.
 /// @tparam TArgs - variadic template arguments for the tasks
 template <std::size_t QSize, typename... TArgs>
-class tQ
+class TaskQ
 {
 public:
   /// @brief Constructs task queue
-  tQ();
+  TaskQ();
 
   /// @brief Destroys task queue
-  ~tQ();
+  ~TaskQ();
 
   /// @brief Adds a task to the queue.
   /// @param f_p - Function pointer to be called
@@ -241,17 +241,17 @@ protected:
 };
 
 template <std::size_t QSize, typename... TArgs>
-tQ<QSize, TArgs...>::tQ() : front(0), back(0), count(0)
+TaskQ<QSize, TArgs...>::TaskQ() : front(0), back(0), count(0)
 {
 }
 
 template <std::size_t QSize, typename... TArgs>
-tQ<QSize, TArgs...>::~tQ()
+TaskQ<QSize, TArgs...>::~TaskQ()
 {
 }
 
 template <std::size_t QSize, typename... TArgs>
-int tQ<QSize, TArgs...>::push(typename Task<TArgs...>::FunctionPointer f_p, TArgs &&...margs)
+int TaskQ<QSize, TArgs...>::push(typename Task<TArgs...>::FunctionPointer f_p, TArgs &&...margs)
 {
   int status = 1;
 
@@ -268,7 +268,7 @@ int tQ<QSize, TArgs...>::push(typename Task<TArgs...>::FunctionPointer f_p, TArg
 }
 
 template <std::size_t QSize, typename... TArgs>
-int tQ<QSize, TArgs...>::pull(void)
+int TaskQ<QSize, TArgs...>::pull(void)
 {
   int status = 1;
 
@@ -285,7 +285,7 @@ int tQ<QSize, TArgs...>::pull(void)
 }
 
 template <std::size_t QSize, typename... TArgs>
-void tQ<QSize, TArgs...>::pull_all(void)
+void TaskQ<QSize, TArgs...>::pull_all(void)
 {
   int err = 0;
   do
@@ -295,7 +295,7 @@ void tQ<QSize, TArgs...>::pull_all(void)
 }
 
 template <std::size_t QSize, typename... TArgs>
-int tQ<QSize, TArgs...>::push(const Task<TArgs...> &task)
+int TaskQ<QSize, TArgs...>::push(const Task<TArgs...> &task)
 {
   int status = 1;
 
@@ -315,14 +315,14 @@ int tQ<QSize, TArgs...>::push(const Task<TArgs...> &task)
 /// @tparam QSize - the maximum number of tasks the queue can hold.
 /// @tparam TArgs - variadic template arguments for the tasks
 template <std::size_t QSize, typename... TArgs>
-class tQd : public tQ<QSize, TArgs...>
+class TaskQd : public TaskQ<QSize, TArgs...>
 {
 public:
   /// @brief Constructs delayed task queue
-  tQd();
+  TaskQd();
 
   /// @brief Destroys delayed task queue
-  ~tQd();
+  ~TaskQd();
 
   /// @brief Adds a task to the delayed task queue.
   /// @param f_p - Function pointer to be called
@@ -352,18 +352,18 @@ private:
 };
 
 template <std::size_t QSize, typename... TArgs>
-tQd<QSize, TArgs...>::tQd() : time(0)
+TaskQd<QSize, TArgs...>::TaskQd() : time(0)
 {
 }
 
 template <std::size_t QSize, typename... TArgs>
-tQd<QSize, TArgs...>::~tQd()
+TaskQd<QSize, TArgs...>::~TaskQd()
 {
 }
 
 template <std::size_t QSize, typename... TArgs>
-int tQd<QSize, TArgs...>::push_delayed(typename Task<TArgs...>::FunctionPointer f_p,
-                                       TArgs &&...margs, std::size_t delay_time)
+int TaskQd<QSize, TArgs...>::push_delayed(typename Task<TArgs...>::FunctionPointer f_p,
+                                          TArgs &&...margs, std::size_t delay_time)
 {
   int full = 1;
 
@@ -397,7 +397,7 @@ int tQd<QSize, TArgs...>::push_delayed(typename Task<TArgs...>::FunctionPointer 
 }
 
 template <std::size_t QSize, typename... TArgs>
-bool tQd<QSize, TArgs...>::revoke(typename Task<TArgs...>::FunctionPointer f_p)
+bool TaskQd<QSize, TArgs...>::revoke(typename Task<TArgs...>::FunctionPointer f_p)
 {
   bool found = false; // Flag to track if any task was found and revoked
 
@@ -432,7 +432,7 @@ bool tQd<QSize, TArgs...>::revoke(typename Task<TArgs...>::FunctionPointer f_p)
 }
 
 template <std::size_t QSize, typename... TArgs>
-void tQd<QSize, TArgs...>::tick(void)
+void TaskQd<QSize, TArgs...>::tick(void)
 {
   // Increment the current time
   ++time;
@@ -456,6 +456,6 @@ void tQd<QSize, TArgs...>::tick(void)
   }
 }
 
-} // Antirtos
+} // antirtos
 
 #endif

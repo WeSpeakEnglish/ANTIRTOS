@@ -6,7 +6,7 @@ typedef struct pinOut
   bool logic;
 } pinout;
 
-Antirtos::tQd<8, pinout> Q1(); // maximum 8 function pointers with parameters in queue
+antirtos::TaskQd<8, pinout> Q1(); // maximum 8 function pointers with parameters in queue
 
 void writePin(pinout cmd)
 { // write a pin true =- ON
