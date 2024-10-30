@@ -28,7 +28,7 @@ fQ::~fQ() { // destructor
   delete [] fQueue;
 };
 
-int fQ::push(fP pointerF) { // push element from the queue
+int fQ::push(fP pointerF) { // push element to the queue
   if ((last + 1) % length == first) {
     return 1;
   }
@@ -185,7 +185,7 @@ int del_fQ::revoke(fP pointerF) {  // revokation of task from the queue in case 
   return result;
 }
 
-int del_fQ::push(fP pointerF) { // push element from the queue
+int del_fQ::push(fP pointerF) { // push element to the queue
   if ((last + 1) % length == first) {
     return 1;
   }
@@ -234,12 +234,12 @@ class del_fQP {
 
 template <typename T>
 del_fQP<T>::del_fQP(int sizeQ) {
-  FP_Queue = new fP[sizeQ];
-  del_FP_Queue = new fP[sizeQ];
-  execArr = new bool[sizeQ];
-  PARAMS_array = new T[sizeQ];
-  delayed_PARAMS_array = new T[sizeQ];
-  execTime = new unsigned long[sizeQ];
+  FP_Queue = new fP[sizeQ];              // function queue (ready to execute)
+  del_FP_Queue = new fP[sizeQ];          // array of delayed tasks (functions)
+  execArr = new bool[sizeQ];            // to mark vacant position in temporal (delayed) array
+  PARAMS_array = new T[sizeQ];          //array of parameters ready to be passed to funtions (to execute)
+  delayed_PARAMS_array = new T[sizeQ];  //array of parameters (to pass to delayed functions)
+  execTime = new unsigned long[sizeQ];  //array to store execution time (schedule)
   last = 0;
   first = 0;
   time = 0;
@@ -260,7 +260,7 @@ del_fQP<T>::~del_fQP() {
 }
 
 template <typename T>
-int del_fQP<T>::push(void (*pointerF)(T), T parameterQ) {
+int del_fQP<T>::push(void (*pointerF)(T), T parameterQ) { //push directly, without delay
   if ((last + 1) % length == first) return 1;
   FP_Queue[last] = pointerF;
   PARAMS_array[last] = parameterQ;
@@ -269,7 +269,7 @@ int del_fQP<T>::push(void (*pointerF)(T), T parameterQ) {
 }
 
 template <typename T>
-int del_fQP<T>::push_delayed(void (*pointerF)(T), T parameterQ, unsigned long delayTime) {
+int del_fQP<T>::push_delayed(void (*pointerF)(T), T parameterQ, unsigned long delayTime) {    // push delayed function
   bool fullQ = true;                                              // is Queue full?
   for (unsigned int i = 0; i < length; i++) {
     if (!execArr[i] ) {
@@ -298,7 +298,7 @@ void del_fQP<T>::tick(void) {
   time++;
 }
 template <typename T>
-int del_fQP<T>::revoke(void (*pointerF)(T)) {
+int del_fQP<T>::revoke(void (*pointerF)(T)) { // revoke from execution
   int result = 1;
   for (int i = 0; i < length; i++) {
     if (del_FP_Queue[i] == pointerF) {
@@ -310,7 +310,7 @@ int del_fQP<T>::revoke(void (*pointerF)(T)) {
 }
 
 template <typename T>
-int del_fQP<T>::pull() {
+int del_fQP<T>::pull() {   // pull from a queue (and execute)
   fP pullVar;
   if (last != first) {
     T Params = PARAMS_array[first];
