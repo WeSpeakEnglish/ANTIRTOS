@@ -134,7 +134,7 @@ del_fQ::del_fQ(int sizeQ) { // constructor
   last = 0;
   first = 0;
   time = 0;
-  for (unsigned int i = 0; i < sizeQ; i++) {
+  for (int i = 0; i < sizeQ; i++) {
     execArr[i] = false;
   }
   length = sizeQ;
@@ -149,7 +149,7 @@ del_fQ::~del_fQ() { // destructor
 
 int del_fQ::push_delayed(fP pointerF, unsigned long delayTime) { // push element from the queue
   bool fullQ = true;                                      // is Queue full?
-  for (unsigned int i = 0; i < length; i++) {
+  for (int i = 0; i < length; i++) {
     if (!execArr[i] ) {
       del_fQueue[i] = pointerF;                          // put pointer into exec queue
       execArr[i] = true;                                 // true flag for execution
@@ -163,7 +163,7 @@ int del_fQ::push_delayed(fP pointerF, unsigned long delayTime) { // push element
 };
 
 void del_fQ::tick(void) {    // tick method to provide delay functionality, put it into periodic routine
-  static unsigned int i = 0 ;  //uses in search cycle every tick
+  static int i = 0 ;  //uses in search cycle every tick
   for (i = 0; i < length; i++) {
     if (execTime[i] == time)
       if (execArr[i]) {
@@ -243,7 +243,7 @@ del_fQP<T>::del_fQP(int sizeQ) {
   last = 0;
   first = 0;
   time = 0;
-  for (unsigned int i = 0; i < sizeQ; i++) {
+  for (int i = 0; i < sizeQ; i++) {
     execArr[i] = false;
   }
   length = sizeQ;
@@ -271,7 +271,7 @@ int del_fQP<T>::push(void (*pointerF)(T), T parameterQ) { //push directly, witho
 template <typename T>
 int del_fQP<T>::push_delayed(void (*pointerF)(T), T parameterQ, unsigned long delayTime) {    // push delayed function
   bool fullQ = true;                                              // is Queue full?
-  for (unsigned int i = 0; i < length; i++) {
+  for (int i = 0; i < length; i++) {
     if (!execArr[i] ) {
       del_FP_Queue[i] = pointerF;                              // put function pointer into exec queue
       delayed_PARAMS_array[i] = parameterQ;                    // put parameter into exec queue
@@ -287,7 +287,7 @@ int del_fQP<T>::push_delayed(void (*pointerF)(T), T parameterQ, unsigned long de
 
 template <typename T>
 void del_fQP<T>::tick(void) {
-  static unsigned int i = 0 ;  //uses in search cycle every tick
+  static int i = 0 ;  //uses in search cycle every tick
   for (i = 0; i < length; i++) {
     if (execTime[i] == time)
       if (execArr[i]) {
