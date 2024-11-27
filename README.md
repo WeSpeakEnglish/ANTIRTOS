@@ -26,10 +26,10 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 
 1.	Create queues in an easy way
 ```cpp
-TaskQ<4> F1(); // first queue is 4 elements(function pointers) long
-TaskQ<4> F2(); // second queue is 4 elements(function pointers) long
-TaskQ<8> F3(); // third queue is 8 elements(function pointers) long
-TaskQ<3, int32_t> F4(); // fourth queue is 3 elements(function pointers)
+TaskQ<4> F1; // first queue is 4 elements(function pointers) long
+TaskQ<4> F2; // second queue is 4 elements(function pointers) long
+TaskQ<8> F3; // third queue is 8 elements(function pointers) long
+TaskQ<3, int32_t> F4; // fourth queue is 3 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
@@ -38,7 +38,7 @@ TaskQ<3, int32_t> F4(); // fourth queue is 3 elements(function pointers)
 
 ```cpp
 void button1Interrupt(){
-	F1.push(Below used following functions); // void dealAssociatedButton1() – is your task for this button
+	F1.push(dealAssociatedButton1); // void dealAssociatedButton1() – is your task for this button
 }
   
 void button2Interrupt(){
@@ -102,7 +102,7 @@ class testClass{        // it is not used here, just like example how you may pa
     int array[10]={0,0,0,0,0,0,0,0,0,0};
     float argument = 0.0;
 };
-TaskQ<testClass, 10> F2();
+TaskQ<testClass, 10> F2;
 ```
 Instances of your class passed to functions must be of constant size.
 
@@ -110,7 +110,7 @@ Instances of your class passed to functions must be of constant size.
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
- TaskQd<8> F5(); // 'delayed' queue
+ TaskQd<8> F5; // 'delayed' queue
 
  ```
 put where you want (here example of 2 functions put into queue):
@@ -135,7 +135,7 @@ put where you want (here example of 2 functions put into queue):
 Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
- TaskQd<8, float> F6(); // // maximum 8 'delayed' functions pointers with parameters in queue
+ TaskQd<8, float> F6; // // maximum 8 'delayed' functions pointers with parameters in queue
 
  ```
 put where you want (here example of 2 functions put into queue):
