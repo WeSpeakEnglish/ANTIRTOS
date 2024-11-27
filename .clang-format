@@ -1,0 +1,13 @@
+BasedOnStyle : LLVM
+Language : Cpp
+UseTab : Never
+Standard : c++17
+BreakBeforeBraces : Allman
+ColumnLimit: 100
+FixNamespaceComments: false
+AlwaysBreakTemplateDeclarations: true
+AllowShortFunctionsOnASingleLine: None
+IndentPPDirectives: BeforeHash
+InsertNewlineAtEOF: true
+InsertBraces: true
+NamespaceIndentation: Inner
