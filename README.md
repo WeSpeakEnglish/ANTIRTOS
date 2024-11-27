@@ -22,6 +22,7 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 0. To start using the library - include the header:
 ```cpp
 #include <antirtos.h>
+using namespace antirtos;
 ```
 
 1.	Create queues in an easy way
