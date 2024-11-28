@@ -100,7 +100,7 @@ If you need to pass several arguments – no problem, you may them in the same m
 antirtos::TaskQ<10, int, float, char> F2;
 
 ....
- F2.push(yourTask, 10, 22.4, 'a'); //passing arguments to function in queue
+ F2.push(yourTask, 500, 22.4, 'a'); //passing arguments to function in queue (*500, 22.4, 'a'* - are arguments)
 
 ....
  F2.pull();
