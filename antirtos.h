@@ -124,6 +124,18 @@ public:
         return 1; // Queue is full
     }
 
+    int push(Task<TArgs...> task)
+    {
+        if (count < QSize)
+        {
+            tasks[back] = task;
+            back = (back + 1) % QSize;
+            ++count;
+            return 0;
+        }
+        return 1; // Queue is full
+    }
+
     int pull()
     {
         if (count > 0)
