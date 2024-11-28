@@ -46,7 +46,7 @@ public:
     ~Task() = default;
 
     Task(const Task &other) : func_ptr(other.func_ptr), func_args(other.func_args) {}
-    Task &operator=(const Task &other)
+    inline Task &operator=(const Task &other)
     {
         if (this != &other)
         {
@@ -56,12 +56,12 @@ public:
         return *this;
     }
 
-    Task(Task &&other) noexcept : func_ptr(other.func_ptr), func_args(std::move(other.func_args))
+    inline Task(Task &&other) noexcept : func_ptr(other.func_ptr), func_args(std::move(other.func_args))
     {
         other.func_ptr = nullptr;
     }
 
-    Task &operator=(Task &&other) noexcept
+    inline Task &operator=(Task &&other) noexcept
     {
         if (this != &other)
         {
@@ -72,17 +72,17 @@ public:
         return *this;
     }
 
-    void set(FunctionPointer f_p, TArgs... margs)
+    inline void set(FunctionPointer f_p, TArgs... margs)
     {
         func_ptr = f_p;
         func_args = std::make_tuple(std::forward<TArgs>(margs)...);
     }
 
-    void reset() { func_ptr = nullptr; }
+    inline void reset() { func_ptr = nullptr; }
 
-    bool runable() const { return (func_ptr != nullptr); }
+    inline bool runable() const { return (func_ptr != nullptr); }
 
-    int run()
+    inline int run()
     {
         if (func_ptr)
         {
