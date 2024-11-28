@@ -22,15 +22,14 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 0. To start using the library - include the header:
 ```cpp
 #include <antirtos.h>
-using namespace antirtos;
 ```
 
 1.	Create queues in an easy way
 ```cpp
-TaskQ<4> F1; // first queue is 4 elements(function pointers) long
-TaskQ<4> F2; // second queue is 4 elements(function pointers) long
-TaskQ<8> F3; // third queue is 8 elements(function pointers) long
-TaskQ<3, int32_t> F4; // fourth queue is 3 elements(function pointers)
+antirtos::TaskQ<4> F1; // first queue is 4 elements(function pointers) long
+antirtos::TaskQ<4> F2; // second queue is 4 elements(function pointers) long
+antirtos::TaskQ<8> F3; // third queue is 8 elements(function pointers) long
+antirtos::TaskQ<3, int32_t> F4; // fourth queue is 3 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
@@ -96,14 +95,15 @@ val = analogRead(3);  		// read the input pin
 ```
 
 
-If you need to pass several arguments – no problem, you may use your own class for a queue:
+If you need to pass several arguments – no problem, you may them in the same manner:
 ```cpp
-class testClass{        // it is not used here, just like example how you may pass complex argument to your functions in queue
-  public:
-    int array[10]={0,0,0,0,0,0,0,0,0,0};
-    float argument = 0.0;
-};
-TaskQ<testClass, 10> F2;
+antirtos::TaskQ<10, int, float, char> F2;
+
+....
+ F2.push(yourTask, 10, 22.4, 'a'); //passing arguments to function in queue
+
+....
+ F2.pull();
 ```
 Instances of your class passed to functions must be of constant size.
 
@@ -111,7 +111,7 @@ Instances of your class passed to functions must be of constant size.
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
- TaskQd<8> F5; // 'delayed' queue
+ antirtos::TaskQd<8> F5; // 'delayed' queue
 
  ```
 put where you want (here example of 2 functions put into queue):
@@ -136,7 +136,7 @@ put where you want (here example of 2 functions put into queue):
 Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
- TaskQd<8, float> F6; // // maximum 8 'delayed' functions pointers with parameters in queue
+ antirtos::TaskQd<8, float> F6; // // maximum 8 'delayed' functions pointers with parameters in queue
 
  ```
 put where you want (here example of 2 functions put into queue):
