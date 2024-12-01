@@ -1,7 +1,6 @@
 // under MIT license, Aleksei Tertychnyi
 #ifndef _antirtos_h
 #define _antirtos_h
-
 #include <cstddef>
 #include <tuple>
 #include <utility>
@@ -172,7 +171,7 @@ public:
     TaskQd() : time(0), count(0) {}
     ~TaskQd() = default;
 
-    int push_delayed(typename Task<TArgs...>::FunctionPointer f_p, TArgs &&...margs, std::size_t delay_time)
+    int push_delayed(typename Task<TArgs...>::FunctionPointer f_p, TArgs... margs, std::size_t delay_time)
     {
         if (count < QSize)
         {
@@ -218,9 +217,7 @@ public:
 
     void tick()
     {
-        ++time;
-
-        while (count > 0 && exec_times[0] <= time)
+        while (count > 0 && exec_times[0] == time)
         {
             this->push(delayed_tasks[0]);
             for (std::size_t i = 0; i < count - 1; ++i)
@@ -230,6 +227,7 @@ public:
             }
             --count;
         }
+        ++time;
     }
 
 private:
@@ -240,6 +238,5 @@ private:
 };
 
 } // namespace antirtos
-
 
 #endif
