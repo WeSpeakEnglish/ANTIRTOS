@@ -8,7 +8,7 @@ It is developed especially for embedded systems where the complexity and overhea
 This is an universal branch with dynamic memory (heap) allocation approach.
 
 The modern branch also avaliable here: [modern branch](https://github.com/WeSpeakEnglish/ANTIRTOS/tree/modern), it enhances simplicity in usage by leveraging the standard library (std) and static allocation. 
-However, it is not supported on some platforms yet. If you prefer not to use the standard library, or if your platform does not support it, consider using 'old style' versions of AntiRTOS
+However, it is not supported on some platforms yet. 
 
 ### Benifits:
 1.	Interrupts kept fast and controllable, no blocking anymore.
