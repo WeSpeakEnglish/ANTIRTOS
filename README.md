@@ -7,7 +7,7 @@ ANTIRTOS is an ultra-lightweight, universal C++ library designed for task manage
 It is developed especially for embedded systems where the complexity and overhead of an RTOS are not justified.
 This is an universal branch with dynamic memory (heap) allocation approach.
 
-The modern branch also avaliable here: [modern branch](https://github.com/WeSpeakEnglish/ANTIRTOS/tree/modern), it enhances simplicity in usage by leveraging the standard library (std) and static allocation. 
+The modern version is avaliable here: [modern branch](https://github.com/WeSpeakEnglish/ANTIRTOS_MODERN), it enhances simplicity in usage by leveraging the standard library (std) using tuples and static allocation. 
 However, it is not supported on some platforms yet. 
 
 ### Benifits:
