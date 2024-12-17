@@ -163,7 +163,6 @@ put where you want (here example of 2 functions put into queue):
    ```cpp
   F5.revoke(yourTask); // revoke function (all of the same if there are several of them) from the F5 queue
   ```
-Kindly find an example of usage revocation on [Wokwi](https://wokwi.com/projects/411101121732784129)!
 
 That's it. Enjoy! 
  
@@ -176,5 +175,5 @@ You even may improve your job by dividing all your functions into "weight" group
 3.	Execute the fastest functions instead of waiting inside of the middle functions.
 4.	Use the medium and fast pulls for waiting inside of slow procedures.
 
-Try it on [Wokwi](https://wokwi.com/projects/410932957331738625)!
+
 
