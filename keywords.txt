@@ -2,25 +2,39 @@
 # Datatypes (KEYWORD1)
 #######################################
 ANTIRTOS	KEYWORD1
-TaskQ  KEYWORD1
-TaskQd  KEYWORD1
+fQ  KEYWORD1
+fQP  KEYWORD1
+del_fQ  KEYWORD1
+del_fQP  KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 ###################################
-# Class TaskQ
+# Class fQ
 ###################################
 push	KEYWORD2
 pull	KEYWORD2
-pull_all	KEYWORD2
 
 ###################################
-# Class TaskQd
+# Class fQp
 ###################################
-push_delayed	KEYWORD2
+push	KEYWORD2
 pull	KEYWORD2
-pull_all	KEYWORD2
+
+###################################
+# Class del_fQ
+###################################
+push_delayed KEYWORD2
+push	KEYWORD2
+pull	KEYWORD2
 tick	KEYWORD2
-revoke	KEYWORD2
+
+###################################
+# Class del_fQP
+###################################
+push_delayed KEYWORD2
+push 	KEYWORD2
+pull	KEYWORD2
+tick	KEYWORD2

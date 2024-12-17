@@ -1,9 +1,14 @@
 <img src="https://github.com/WeSpeakEnglish/images/blob/main/logo_antirtos.png" width="300">
 
+
 # ANTIRTOS 
-### *No RTOS need, you will see...*
+### *No any RTOS needed, you will see...*
 ANTIRTOS is an ultra-lightweight, universal C++ library designed for task management in IoT and embedded applications. It is coded in a single, small file, making it incredibly easy to integrate into your projects. ANTIRTOS aims to deliver a robust, secure, and efficient library for task management. With its focus on modularity and scalability, ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems.
 It is developed especially for embedded systems where the complexity and overhead of an RTOS are not justified.
+This is an universal branch with dynamic memory (heap) allocation approach.
+
+The modern branch also avaliable here: [modern branch](https://github.com/WeSpeakEnglish/ANTIRTOS/tree/modern), it enhances simplicity in usage by leveraging the standard library (std) and static allocation. 
+However, it is not supported on some platforms yet. If you prefer not to use the standard library, or if your platform does not support it, consider using 'old style' versions of AntiRTOS
 
 ### Benifits:
 1.	Interrupts kept fast and controllable, no blocking anymore.
@@ -24,10 +29,10 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 
 1.	Create queues in an easy way
 ```cpp
-antirtos::TaskQ<4> F1; // first queue is 4 elements(function pointers) long
-antirtos::TaskQ<4> F2; // second queue is 4 elements(function pointers) long
-antirtos::TaskQ<8> F3; // third queue is 8 elements(function pointers) long
-antirtos::TaskQ<3, int32_t> F4; // fourth queue is 3 elements(function pointers)
+fQ F1(4); // first queue is 4 elements(function pointers) long
+fQ F2(4); // second queue is 4 elements(function pointers) long
+fQ F3(8); // third queue is 8 elements(function pointers) long
+fQP<int32_t> F4(3); // third queue is 3 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
@@ -36,7 +41,7 @@ antirtos::TaskQ<3, int32_t> F4; // fourth queue is 3 elements(function pointers)
 
 ```cpp
 void button1Interrupt(){
-	F1.push(dealAssociatedButton1); // void dealAssociatedButton1() – is your task for this button
+	F1.push(Below used following functions); // void dealAssociatedButton1() – is your task for this button
 }
   
 void button2Interrupt(){
@@ -93,15 +98,14 @@ val = analogRead(3);  		// read the input pin
 ```
 
 
-If you need to pass several arguments – no problem, you may them in the same manner:
+If you need to pass several arguments – no problem, you may use your own class for a queue:
 ```cpp
-antirtos::TaskQ<10, int, float, char> F2;
-
-....
- F2.push(yourTask, 500, 22.4, 'a'); //passing arguments to function in queue (500, 22.4, 'a' - are arguments)
-
-....
- F2.pull();
+class testClass{        // it is not used here, just like example how you may pass complex argument to your functions in queue
+  public:
+    int array[10]={0,0,0,0,0,0,0,0,0,0};
+    float argument = 0.0;
+};
+fQP<testClass> F2(10);
 ```
 Instances of your class passed to functions must be of constant size.
 
@@ -109,7 +113,7 @@ Instances of your class passed to functions must be of constant size.
 Do you need just to delay some function from execution? Do not wait any more!
 Initialize:
 ```cpp
- antirtos::TaskQd<8> F5; // 'delayed' queue
+ del_fQ F5(8); // 'delayed' queue
 
  ```
 put where you want (here example of 2 functions put into queue):
@@ -134,7 +138,7 @@ put where you want (here example of 2 functions put into queue):
 Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
- antirtos::TaskQd<8, float> F6; // // maximum 8 'delayed' functions pointers with parameters in queue
+ del_fQP<float> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue
 
  ```
 put where you want (here example of 2 functions put into queue):
