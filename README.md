@@ -3,7 +3,7 @@
 
 # ANTIRTOS 
 ### *No any RTOS needed, you will see...*
-ANTIRTOS is an ultra-lightweight, robust, secure, and efficient universal C++ library designed for task management in IoT and embedded applications. It is coded in one header-only file, that provides four versions of main task queue class : fQ is the basic class, fQP adds an argument for the queued functions, del_fQ adds an delay before the dunction is executed, and del_fQP add both enhancements. 
+ANTIRTOS is an ultra-lightweight, robust, secure, and efficient universal C++ library designed for task management in IoT and embedded applications. It is coded in one header-only file, that provides four versions of main task queue class : fQ is the basic class, fQP adds an argument for the queued functions, del_fQ adds an delay before the function is executed, and del_fQP add both enhancements. 
 
 Each queue object contains an array of pointers to functions to execute sequentially. The "push" procedure adds a function to the back of the queue, while the "pull" procedure executes the next function and removes it from the queue. Several queues can co-exist concurrently, and the execution of the functions occurs outside of interrupts in a non-blocking way. 
 
