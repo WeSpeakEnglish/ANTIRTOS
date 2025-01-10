@@ -3,14 +3,17 @@
 
 # ANTIRTOS 
 ### *No any RTOS needed, you will see...*
-ANTIRTOS is an ultra-lightweight, universal C++ library designed for task management in IoT and embedded applications. It is coded in a single, small file, making it incredibly easy to integrate into your projects. ANTIRTOS aims to deliver a robust, secure, and efficient library for task management. With its focus on modularity and scalability, ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems.
-It is developed especially for embedded systems where the complexity and overhead of an RTOS are not justified.
+ANTIRTOS is an ultra-lightweight, robust, secure, and efficient universal C++ library designed for task management in IoT and embedded applications. It is coded in one header-only file, that provides four versions of main task queue class : fQ is the basic class, fQP adds an argument for the queued functions, del_fQ adds an delay before the dunction is executed, and del_fQP add both enhancements. 
+
+Each queue object contains an array of pointers to functions to execute sequentially. The "push" procedure adds a function to the back of the queue, while the "pull" procedure executes the next function and removes it from the queue. Several queues can co-exist concurrently, and the execution of the functions occurs outside of interrupts in a non-blocking way. 
+
+ANTIRTOS is suitable for a variety of devices, from simple microcontrollers to complex embedded systems where the complexity and overhead of an RTOS are not justified.
+
 This is an universal branch with dynamic memory (heap) allocation approach.
 
-The modern version is avaliable here: [ANTIRTOS_MODERN](https://github.com/WeSpeakEnglish/ANTIRTOS_MODERN), it enhances simplicity in usage by leveraging the standard library (std) using tuples and static allocation. 
-However, it is not supported on some platforms yet. 
+A newer version called [ANTIRTOS_MODERN](https://github.com/WeSpeakEnglish/ANTIRTOS_MODERN) leverages the standard library (std) using tuples and static allocation to simplify its usage. However, it is not supported on some platforms yet. 
 
-### Benifits:
+### Benefits:
 1.	Interrupts kept fast and controllable, no blocking anymore.
 2.	Easy to debug and understand. 
 3.	Get an easy way of multitasking.
