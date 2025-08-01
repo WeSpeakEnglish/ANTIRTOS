@@ -220,7 +220,7 @@ public:
     {
         ++time;
 
-        while (count > 0 && exec_times[0] <= time)
+        while (count > 0 && exec_times[0] == time)
         {
             this->push(delayed_tasks[0]);
             for (std::size_t i = 0; i < count - 1; ++i)
