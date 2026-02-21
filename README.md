@@ -35,7 +35,7 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 fQ F1(4); // first queue is 4 elements(function pointers) long
 fQ F2(4); // second queue is 4 elements(function pointers) long
 fQ F3(8); // third queue is 8 elements(function pointers) long
-fQP<int32_t> F4(3); // third queue is 3 elements(function pointers)
+fQP<int32_t> F4(16); // third queue is 16 elements(function pointers)
 		    // functions are receiving int32_t argument
 ```
 
@@ -168,6 +168,7 @@ put where you want (here example of 2 functions put into queue):
   F5.revoke(yourTask); // revoke function (all of the same if there are several of them) from the F5 queue
   ```
 Kindly find an example of usage revocation on [Wokwi](https://wokwi.com/projects/411101121732784129)!
+It is recommended to use queues with lengts of pow 2 (ex 4,8,16,32... etc.) as compiler will simplify the **%** operations
 
 That's it. Enjoy! 
  
