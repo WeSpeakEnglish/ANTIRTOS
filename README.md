@@ -168,7 +168,8 @@ put where you want (here example of 2 functions put into queue):
   F5.revoke(yourTask); // revoke function (all of the same if there are several of them) from the F5 queue
   ```
 Kindly find an example of usage revocation on [Wokwi](https://wokwi.com/projects/411101121732784129)!
-It is recommended to use queues with lengts of pow 2 (ex 4,8,16,32... etc.) as compiler will simplify the **%** operations
+
+It is recommended to use queues with lengts of pow 2 (ex 4,8,16,32... etc.) as compiler will simplify the % operations
 
 That's it. Enjoy! 
  
