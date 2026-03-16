@@ -169,18 +169,17 @@ put where you want (here example of 2 functions put into queue):
   ```
 Kindly find an example of usage revocation on [Wokwi](https://wokwi.com/projects/411101121732784129)!
 
-It is recommended to use queues with lengts of pow 2 (ex 4,8,16,32... etc.) as compiler will simplify the % operations
+### Tips
+[X] It is recommended to use queues with lengts of pow 2 (ex 4,8,16,32... etc.) as compiler will simplify the % operations.
 
-That's it. Enjoy! 
- 
+[X] If you are not sure of interrupts priorities, push to separate queue from each interrupt.
 
-If you are not sure of interrupts priorities, push to different queues in each interrupt
-
-You even may improve your job by dividing all your functions into "weight" groups:
+[X] You may improve performance by dividing all your functions into "weight" groups:
 1.	Divide all your functions into groups: fast (in one pass), slow-to-complete, and middle functions.
 2.	Create a separate queue of pointers to these functions for each type.
 3.	Execute the fastest functions instead of waiting inside of the middle functions.
-4.	Use the medium and fast pulls for waiting inside of slow procedures.
+4.	Execute the medium and fast for waiting inside of slow procedures.
 
+That's it. Enjoy! 
 Try it on [Wokwi](https://wokwi.com/projects/410932957331738625)!
 
