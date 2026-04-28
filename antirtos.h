@@ -1,6 +1,7 @@
 // under MIT license, Aleksei Tertychnyi
 
 #ifndef antirtos_h
+#define antirtos_h
 
 /**
  * @class fQ
@@ -42,24 +43,24 @@ class fQ {
     int pull(void);
 
   private:
-    unsigned char first;                            ///< Index of the first element in the queue.
-    volatile unsigned char last;                    ///< Index of the last element in the queue.
-    unsigned char length;                           ///< Maximum size of the queue.
+    unsigned char first;                  ///< Index of the first element in the queue.
+    volatile unsigned char last;          ///< Index of the last element in the queue.
+    unsigned char length;                 ///< Maximum size of the queue.
     fP* fQueue;                           ///< Queue for function pointers.
 };
 
-fQ::fQ(unsigned char sizeQ) { // initialization of Queue (constructor)
+fQ::fQ(unsigned char sizeQ) {
   fQueue = new fP[sizeQ];
   last = 0;
   first = 0;
   length = sizeQ;
 };
 
-fQ::~fQ() { // destructor
+fQ::~fQ() {
   delete [] fQueue;
 };
 
-int fQ::push(fP pointerF) { // push element from the queue
+int fQ::push(fP pointerF) {
   if ((last + 1) % length == first) {
     return 1;
   }
@@ -68,7 +69,7 @@ int fQ::push(fP pointerF) { // push element from the queue
   return 0;
 };
 
-int fQ::pull(void) { // pull element from the queue
+int fQ::pull(void) {
   if (last != first) {
     fQueue[first++]();
     first = first % length;
@@ -117,17 +118,16 @@ class fQP {
     int pull();
 
   private:
-    unsigned char first;                            ///< Index of the first element in the queue.
-    volatile unsigned char last;                    ///< Index of the last element in the queue.
-    unsigned char length;                           ///< Maximum size of the queue.
+    unsigned char first;                  ///< Index of the first element in the queue.
+    volatile unsigned char last;          ///< Index of the last element in the queue.
+    unsigned char length;                 ///< Maximum size of the queue.
     typedef void (*fP)(T);                ///< Function pointer type that accepts a parameter of type T.
     fP* FP_Queue;                         ///< Queue for function pointers.
     T* PARAMS_array;                      ///< Queue for parameters associated with the function pointers.
 };
 
-
 template <typename T>
-fQP<T>::fQP(unsigned char sizeQ) { // constructor
+fQP<T>::fQP(unsigned char sizeQ) {
   FP_Queue = new fP[sizeQ];
   PARAMS_array = new T[sizeQ];
   last = 0;
@@ -136,13 +136,13 @@ fQP<T>::fQP(unsigned char sizeQ) { // constructor
 }
 
 template <typename T>
-fQP<T>::~fQP() {   //destructor
+fQP<T>::~fQP() {
   delete[] FP_Queue;
   delete[] PARAMS_array;
 }
 
 template <typename T>
-int fQP<T>::push(void (*pointerF)(T), T parameterQ) {   //push your task into queue
+int fQP<T>::push(void (*pointerF)(T), T parameterQ) {
   if ((last + 1) % length == first) return 1;
   FP_Queue[last] = pointerF;
   PARAMS_array[last] = parameterQ;
@@ -151,7 +151,7 @@ int fQP<T>::push(void (*pointerF)(T), T parameterQ) {   //push your task into qu
 }
 
 template <typename T>
-int fQP<T>::pull() {  // pulls task and parameters from the queue and execute
+int fQP<T>::pull() {
   fP pullVar;
   if (last != first) {
     T Params = PARAMS_array[first];
@@ -166,12 +166,14 @@ int fQP<T>::pull() {  // pulls task and parameters from the queue and execute
 }
 
 /**
- * @class del_fQ
+ * @class del_fQ_t
  * @brief A queue-based task scheduler for function pointers without parameters, with optional delayed execution.
  *
- * This class provides a mechanism to manage function pointers with optional delays in their execution. 
+ * This class provides a mechanism to manage function pointers with optional delays in their execution.
  * Tasks can be executed immediately or scheduled for future execution based on a time delay.
+ * A mutex flag protects push_delayed() from race conditions with tick() when called from an ISR.
  *
+ * @tparam Tm The type used for the time counter and delay values. Default is unsigned long.
  */
 template <typename Tm = unsigned long>
 class del_fQ_t {
@@ -210,6 +212,7 @@ class del_fQ_t {
 
     /**
      * @brief Periodic function to manage delayed tasks. Call this method in an ISR or main loop.
+     *        Skips processing if push_delayed() is in progress (mutex protected).
      */
     void tick(void);
 
@@ -227,18 +230,19 @@ class del_fQ_t {
     int revoke(fP pointerF);
 
   private:
-    unsigned char first;                            ///< Index of the first element in the queue.
-    volatile unsigned char last;                    ///< Index of the last element in the queue.
-    unsigned char length;                           ///< Maximum size of the queue.
-    Tm time;                   ///< Current tick count for managing delays.
+    unsigned char first;                  ///< Index of the first element in the queue.
+    volatile unsigned char last;          ///< Index of the last element in the queue.
+    unsigned char length;                 ///< Maximum size of the queue.
+    Tm time;                              ///< Current tick count for managing delays.
+    volatile unsigned char mutex;         ///< Mutex flag to protect push_delayed() from tick().
     fP *fQueue;                           ///< Queue for immediate function pointers.
     fP *del_fQueue;                       ///< Queue for delayed function pointers.
     bool *execArr;                        ///< Execution flags for delayed tasks.
-    Tm *execTime;              ///< Execution times for delayed tasks.
+    Tm *execTime;                         ///< Execution times for delayed tasks.
 };
 
 template <typename Tm>
-del_fQ_t<Tm>::del_fQ_t(unsigned char sizeQ) {       // constructor
+del_fQ_t<Tm>::del_fQ_t(unsigned char sizeQ) {
   fQueue = new fP[sizeQ];
   del_fQueue = new fP[sizeQ];
   execArr = new bool[sizeQ];
@@ -246,14 +250,15 @@ del_fQ_t<Tm>::del_fQ_t(unsigned char sizeQ) {       // constructor
   last = 0;
   first = 0;
   time = 0;
-  for (unsigned int i = 0; i < sizeQ; i++) {
+  mutex = 0;
+  for (unsigned char i = 0; i < sizeQ; i++) {
     execArr[i] = false;
   }
   length = sizeQ;
 };
 
 template <typename Tm>
-del_fQ_t<Tm>::~del_fQ_t() { // destructor
+del_fQ_t<Tm>::~del_fQ_t() {
   delete [] fQueue;
   delete [] del_fQueue;
   delete [] execArr;
@@ -261,36 +266,39 @@ del_fQ_t<Tm>::~del_fQ_t() { // destructor
 };
 
 template <typename Tm>
-int del_fQ_t<Tm>::push_delayed(fP pointerF, Tm delayTime) {    // push element from the queue
-  bool fullQ = true;                                                // is Queue full?
+int del_fQ_t<Tm>::push_delayed(fP pointerF, Tm delayTime) {
+  mutex = 1;
+  bool fullQ = true;
   for (unsigned char i = 0; i < length; i++) {
-    if (!execArr[i] ) {
-      del_fQueue[i] = pointerF;                                    // put pointer into exec queue
-      execArr[i] = true;                                           // true flag for execution
-      execTime[i] = time + delayTime;                              //calc execution time, no worry if overload
+    if (!execArr[i]) {
+      del_fQueue[i] = pointerF;
+      execArr[i] = true;
+      execTime[i] = time + delayTime;
       fullQ = false;
       break;
     }
   }
+  mutex = 0;
   if (fullQ) return 1;
   return 0;
 };
 
 template <typename Tm>
-void del_fQ_t<Tm>::tick(void) {                                          // tick method to provide delay functionality, put it into periodic routine
-									                                     // uses in search cycle every tick
-  for (unsigned char i = 0; i < length; i++) {
-    if (execTime[i] == time)
-      if (execArr[i]) {
-        push(del_fQueue[i]);                                      // bump into normal queue part of delayed Queue
-        execArr[i] = false;
-      }
+void del_fQ_t<Tm>::tick(void) {
+  if (!mutex) {
+    for (unsigned char i = 0; i < length; i++) {
+      if (execTime[i] == time)
+        if (execArr[i]) {
+          push(del_fQueue[i]);
+          execArr[i] = false;
+        }
+    }
   }
   time++;
 }
 
 template <typename Tm>
-int del_fQ_t<Tm>::revoke(fP pointerF) {  // revocation of task from the queue in case you do not need it any more
+int del_fQ_t<Tm>::revoke(fP pointerF) {
   int result = 1;
   for (unsigned char i = 0; i < length; i++) {
     if (del_fQueue[i] == pointerF) {
@@ -302,7 +310,7 @@ int del_fQ_t<Tm>::revoke(fP pointerF) {  // revocation of task from the queue in
 }
 
 template <typename Tm>
-int del_fQ_t<Tm>::push(fP pointerF) {   // push element from the queue
+int del_fQ_t<Tm>::push(fP pointerF) {
   if ((last + 1) % length == first) {
     return 1;
   }
@@ -312,7 +320,7 @@ int del_fQ_t<Tm>::push(fP pointerF) {   // push element from the queue
 };
 
 template <typename Tm>
-int del_fQ_t<Tm>::pull(void) {         // pull element from the queue
+int del_fQ_t<Tm>::pull(void) {
   if (last != first) {
     fQueue[first++]();
     first = first % length;
@@ -335,8 +343,10 @@ public:
  * This template class manages function pointers and their execution. It supports both immediate
  * and delayed execution of tasks with associated parameters. The class is suitable for
  * embedded applications with constrained resources.
+ * A mutex flag protects push_delayed() from race conditions with tick() when called from an ISR.
  *
- * @tparam T The type of the parameter passed to the function pointers.
+ * @tparam T  The type of the parameter passed to the function pointers.
+ * @tparam Tm The type used for the time counter and delay values. Default is unsigned long.
  */
 template <typename T, typename Tm = unsigned long>
 class del_fQP {
@@ -377,6 +387,7 @@ class del_fQP {
 
     /**
      * @brief Periodic function to manage delayed tasks. Call this method in an ISR or main loop.
+     *        Skips processing if push_delayed() is in progress (mutex protected).
      */
     void tick(void);
 
@@ -394,14 +405,15 @@ class del_fQP {
     int pull();
 
   private:
-    unsigned char first;                            ///< Index of the first element in the queue.
-    volatile unsigned char last;                    ///< Index of the last element in the queue.
-    unsigned char length;                           ///< Maximum size of the queue.
-    Tm time;                   			  ///< Current tick count for managing delays.
+    unsigned char first;                  ///< Index of the first element in the queue.
+    volatile unsigned char last;          ///< Index of the last element in the queue.
+    unsigned char length;                 ///< Maximum size of the queue.
+    Tm time;                              ///< Current tick count for managing delays.
+    volatile unsigned char mutex;         ///< Mutex flag to protect push_delayed() from tick().
     fP *FP_Queue;                         ///< Queue for immediate function pointers.
     fP *del_FP_Queue;                     ///< Queue for delayed function pointers.
     bool *execArr;                        ///< Execution flags for delayed tasks.
-    Tm *execTime;              			  ///< Execution times for delayed tasks.
+    Tm *execTime;                         ///< Execution times for delayed tasks.
     T *PARAMS_array;                      ///< Parameters for immediate tasks.
     T *delayed_PARAMS_array;              ///< Parameters for delayed tasks.
 };
@@ -417,6 +429,7 @@ del_fQP<T, Tm>::del_fQP(unsigned char sizeQ) {
   last = 0;
   first = 0;
   time = 0;
+  mutex = 0;
   for (unsigned char i = 0; i < sizeQ; i++) {
     execArr[i] = false;
   }
@@ -429,8 +442,8 @@ del_fQP<T, Tm>::~del_fQP() {
   delete[] del_FP_Queue;
   delete[] PARAMS_array;
   delete[] delayed_PARAMS_array;
-  delete [] execArr;
-  delete [] execTime;
+  delete[] execArr;
+  delete[] execTime;
 }
 
 template <typename T, typename Tm>
@@ -444,34 +457,39 @@ int del_fQP<T, Tm>::push(void (*pointerF)(T), T parameterQ) {
 
 template <typename T, typename Tm>
 int del_fQP<T, Tm>::push_delayed(void (*pointerF)(T), T parameterQ, Tm delayTime) {
-  bool fullQ = true;                                           // is Queue full?
+  mutex = 1;
+  bool fullQ = true;
   for (unsigned char i = 0; i < length; i++) {
-    if (!execArr[i] ) {
-      del_FP_Queue[i] = pointerF;                              // put function pointer into exec queue
-      delayed_PARAMS_array[i] = parameterQ;                    // put parameter into exec queue
-      execArr[i] = true;                                       // true flag for execution
-      execTime[i] = time + delayTime;                          // calc execution time, no worry if overload
+    if (!execArr[i]) {
+      del_FP_Queue[i] = pointerF;
+      delayed_PARAMS_array[i] = parameterQ;
+      execArr[i] = true;
+      execTime[i] = time + delayTime;
       fullQ = false;
       break;
     }
   }
+  mutex = 0;
   if (fullQ) return 1;
   return 0;
 }
 
 template <typename T, typename Tm>
 void del_fQP<T, Tm>::tick(void) {
-  for (unsigned char i = 0; i < length; i++) {
-    if (execTime[i] == time)
-      if (execArr[i]) {
-        push(del_FP_Queue[i], delayed_PARAMS_array[i]);       // bump into normal queue part of delayed Queue
-        execArr[i] = false;
-      }
+  if (!mutex) {
+    for (unsigned char i = 0; i < length; i++) {
+      if (execTime[i] == time)
+        if (execArr[i]) {
+          push(del_FP_Queue[i], delayed_PARAMS_array[i]);
+          execArr[i] = false;
+        }
+    }
   }
   time++;
 }
+
 template <typename T, typename Tm>
-int del_fQP<T, Tm>::revoke(void (*pointerF)(T)) {  // revocation method, revokes 
+int del_fQP<T, Tm>::revoke(void (*pointerF)(T)) {
   int result = 1;
   for (unsigned char i = 0; i < length; i++) {
     if (del_FP_Queue[i] == pointerF) {
