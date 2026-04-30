@@ -165,7 +165,8 @@ put where you want (here example of 2 functions put into queue):
   ```
   ### Delayed functions - advanced
   If you need to utilize specific counters type inside the delayed queues functionality (for example, you may need to delay for sentures using second ticking timer)
-  you may utilize you desired time variable type using following templated classes.
+  you may utilize you desired time variable type using following templated classes. Default type is *unsigned long*. 
+  
 	For **delayed functions without parameters** use:
   ```cpp
  del_fQ_t<your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
