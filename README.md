@@ -165,26 +165,27 @@ put where you want (here example of 2 functions put into queue):
   ### Delayed functions - advanced
   If you need to utilize specific counters type inside the delayed queues functionality (for example, you may need to delay for sentures using second ticking timer)
   you may utilize you desired time variable type using following templated classes. Default type is *unsigned long*. 
-  	For **delayed functions without parameters** use:
+
+  For **delayed functions without parameters** use:
 	
   ```cpp
- del_fQ_t<your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
+ del_fQ_t<your_type_for_timer> your_queue(queue_length); // maximum 8 'delayed' functions pointers without parameters in queue
   ```
   for example:
   
  ```cpp
- del_fQ_t<uint64_t> F6(8); // // maximum 8 'delayed' functions pointers without parameters in queue, time variables are unsighed int 64-bit wide
+ del_fQ_t<uint64_t> F6(8); // maximum 8 'delayed' functions pointers without parameters in queue, time variables are unsighed int 64-bit wide
  ```
   For **delayed functions with parameters** use:
   
   ```cpp
- del_fQP<float, your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers with parameters in queue
+ del_fQP<float, your_type_for_timer> your_queue(queue_length); // maximum 8 'delayed' functions pointers with parameters in queue
   ```
 
   for example:
   
  ```cpp
- del_fQP<float, uint64_t> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue, time variables are unsighed int 64-bit wide
+ del_fQP<float, uint64_t> F6(8); // maximum 8 'delayed' functions pointers with parameters in queue, time variables are unsighed int 64-bit wide
  ```
   ### Revocation from conveyers
   You may easily revoke your tasks from delayed functional queues using *revoke* method like following:
