@@ -168,18 +168,23 @@ put where you want (here example of 2 functions put into queue):
   you may utilize you desired time variable type using following templated classes. Default type is *unsigned long*. 
   
 	For **delayed functions without parameters** use:
+	
   ```cpp
  del_fQ_t<your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
   ```
   for example:
+  
  ```cpp
  del_fQ_t<uint64_t> F6(8); // // maximum 8 'delayed' functions pointers without parameters in queue, time variables are unsighed int 64-bit wide
  ```
   For **delayed functions with parameters** use:
+  
   ```cpp
  del_fQP<float, your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers with parameters in queue
   ```
+
   for example:
+  
  ```cpp
  del_fQP<float, uint64_t> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue, time variables are unsighed int 64-bit wide
  ```
