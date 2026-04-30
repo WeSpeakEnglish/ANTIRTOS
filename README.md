@@ -139,12 +139,11 @@ put where you want (here example of 2 functions put into queue):
 	F5.tick(); // execute for 'ticks' in timer so the queue class instance will know then to initiate execution
   ```
   
-  ### Delayed functions with parameters
+### Delayed functions with parameters
 Do you need to delay the execution of a function that receives a parameter? With ANTIRTOS you can do it easily!
 Initialize:
 ```cpp
  del_fQP<float> F6(8); // // maximum 8 'delayed' functions pointers with parameters in queue
-
  ```
 put where you want (here example of 2 functions put into queue):
 ```cpp
@@ -166,8 +165,7 @@ put where you want (here example of 2 functions put into queue):
   ### Delayed functions - advanced
   If you need to utilize specific counters type inside the delayed queues functionality (for example, you may need to delay for sentures using second ticking timer)
   you may utilize you desired time variable type using following templated classes. Default type is *unsigned long*. 
-  
-	For **delayed functions without parameters** use:
+  	For **delayed functions without parameters** use:
 	
   ```cpp
  del_fQ_t<your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
