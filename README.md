@@ -168,7 +168,7 @@ put where you want (here example of 2 functions put into queue):
   you may utilize you desired time variable type using following templated classes.
 	For **delayed functions without parameters** use:
   ```cpp
- del_fQ_t<your_type_for_timer> YouQueue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
+ del_fQ_t<your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers without parameters in queue
   ```
   for example:
  ```cpp
@@ -176,7 +176,7 @@ put where you want (here example of 2 functions put into queue):
  ```
   For **delayed functions with parameters** use:
   ```cpp
- del_fQP<float, your_type_for_timer> YouQueue(queue_length); // // maximum 8 'delayed' functions pointers with parameters in queue
+ del_fQP<float, your_type_for_timer> your_queue(queue_length); // // maximum 8 'delayed' functions pointers with parameters in queue
   ```
   for example:
  ```cpp
