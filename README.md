@@ -32,7 +32,7 @@ Allow your MCU to perform many tasks while using a very small amount of microcon
 
 1.	Create queues in an easy way
 ```cpp
-fQ F1(4); // first queue is 4 elements(function pointers) long
+fQ F1(4); // first queue is 4 elements(function pointers) long. One slot is always sacrificed to distinguish "full" queue from "empty". So maximum holding 3 elements.
 fQ F2(4); // second queue is 4 elements(function pointers) long
 fQ F3(8); // third queue is 8 elements(function pointers) long
 fQP<int32_t> F4(16); // third queue is 16 elements(function pointers)
@@ -112,7 +112,7 @@ fQP<testClass> F2(10);
 ```
 Instances of your class passed to functions must be of constant size.
 
-One slot is always sacrificed to distinguish "full" queue from "empty". So maximum with current design is sizeQ = 255, holding 254 items.
+** with current design is sizeQ = 255, holding 254 items.**
 
 ### Delayed functions
 Do you need just to delay some function from execution? Do not wait any more!
@@ -174,18 +174,18 @@ put where you want (here example of 2 functions put into queue):
   for example:
   
  ```cpp
- del_fQ_t<uint64_t> F6(8); // maximum 8 'delayed' functions pointers without parameters in queue, time variables are unsighed int 64-bit wide
+ del_fQ_t<uint64_t> F6(8); // maximum 8-1 'delayed' functions pointers without parameters in queue, time variables are unsighed int 64-bit wide
  ```
   For **delayed functions with parameters** use:
   
   ```cpp
- del_fQP<float, your_type_for_timer> your_queue(queue_length); // maximum 8 'delayed' functions pointers with parameters in queue
+ del_fQP<type_to_pass_to_functions, your_type_for_timer> your_queue(queue_length);
   ```
 
   for example:
   
  ```cpp
- del_fQP<float, uint64_t> F6(8); // maximum 8 'delayed' functions pointers with parameters in queue, time variables are unsighed int 64-bit wide
+ del_fQP<float, uint64_t> F6(8); // maximum 8-1 'delayed' functions pointers with parameters in queue, time variables are unsighed int 64-bit wide
  ```
   ### Revocation from conveyers
   You may easily revoke your tasks from delayed functional queues using *revoke* method like following:
