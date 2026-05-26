@@ -112,7 +112,7 @@ fQP<testClass> F2(10);
 ```
 Instances of your class passed to functions must be of constant size.
 
-** with current design is sizeQ = 255, holding 254 items.**
+**with current design maximum sizeQ = 255, holding 254 items.**
 
 ### Delayed functions
 Do you need just to delay some function from execution? Do not wait any more!
