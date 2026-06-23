@@ -1,3 +1,5 @@
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/WeSpeakEnglish/ANTIRTOS)
+
 <img src="https://github.com/WeSpeakEnglish/images/blob/main/logo_antirtos.png" width="300">
 
 
